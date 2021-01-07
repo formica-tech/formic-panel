@@ -1,0 +1,8 @@
+query ME {
+  me {
+    id
+    email
+    username
+    verified
+  }
+}

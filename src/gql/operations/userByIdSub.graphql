@@ -1,0 +1,13 @@
+subscription UserById($id: uuid!) {
+  user: user_by_pk(id: $id) {
+    id
+    username
+    firstName
+    lastName
+    email
+    phone
+    verified
+    updatedAt
+    createdAt
+  }
+}

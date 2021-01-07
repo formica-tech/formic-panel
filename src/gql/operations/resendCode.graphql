@@ -1,0 +1,5 @@
+mutation ResendCode($verificationId: String!) {
+  resendCode(verificationId: $verificationId) {
+    id
+  }
+}

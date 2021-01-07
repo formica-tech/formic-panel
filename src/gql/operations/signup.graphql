@@ -1,0 +1,13 @@
+mutation SignUp($email: String!, $password: String!) {
+  signup(email: $email, password: $password) {
+    ... on AlreadySignedUp {
+      __typename
+      email
+    }
+    ... on SignedUp {
+      __typename
+      token
+      verificationId
+    }
+  }
+}

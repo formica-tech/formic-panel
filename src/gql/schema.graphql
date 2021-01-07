@@ -1,0 +1,2193 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+union ForgotPasswordResult = UserNotFound | Verification
+
+union LoginResult = InvalidCredentials | Token
+
+union SignUpResult = AlreadySignedUp | SignedUp
+
+type AlreadySignedUp {
+  email: String!
+}
+
+type InvalidCredentials {
+  email: String!
+}
+
+type Me {
+  email: String!
+  id: ID!
+  username: String!
+  verified: Boolean!
+}
+
+type Mutation {
+  forgotPassword(email: String!): ForgotPasswordResult!
+  login(email: String!, password: String!): LoginResult!
+  resendCode(verificationId: String!): Verification!
+  restorePassword(
+    newPassword: String!
+    verification: VerificationInput!
+  ): PasswordChanged!
+  signup(email: String!, password: String!): SignUpResult!
+  uploadProfileImage(image: Upload!): Boolean!
+  verify(verification: VerificationInput!): String!
+}
+
+type PasswordChanged {
+  email: String!
+}
+
+type Query {
+  me: Me!
+}
+
+type SignedUp {
+  token: String!
+  verificationId: String!
+}
+
+type Token {
+  token: String!
+}
+
+type UserNotFound {
+  email: String!
+}
+
+type Verification {
+  id: String!
+}
+
+"columns and relationships of \"device\""
+type device {
+  createdAt: timestamp!
+  "An array relationship"
+  device_signals(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): [device_signal!]!
+  "An aggregated array relationship"
+  device_signals_aggregate(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): device_signal_aggregate!
+  id: String!
+  name: String!
+  updatedAt: timestamp!
+}
+
+"aggregated selection of \"device\""
+type device_aggregate {
+  aggregate: device_aggregate_fields
+  nodes: [device!]!
+}
+
+"aggregate fields of \"device\""
+type device_aggregate_fields {
+  count(columns: [device_select_column!], distinct: Boolean): Int
+  max: device_max_fields
+  min: device_min_fields
+}
+
+"aggregate max on columns"
+type device_max_fields {
+  createdAt: timestamp
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"aggregate min on columns"
+type device_min_fields {
+  createdAt: timestamp
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"response of any mutation on the table \"device\""
+type device_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "gql of the affected rows by the mutation"
+  returning: [device!]!
+}
+
+"columns and relationships of \"device_signal\""
+type device_signal {
+  "An object relationship"
+  device: device
+  deviceId: String
+  event: String!
+  id: uuid!
+  "An object relationship"
+  machine: machine
+  machineId: String
+  "An object relationship"
+  machineStateById: machine_state
+  "An object relationship"
+  machine_state: machine_state
+  payload("JSON select path" path: String): jsonb!
+  timestamp: timestamptz!
+}
+
+"aggregated selection of \"device_signal\""
+type device_signal_aggregate {
+  aggregate: device_signal_aggregate_fields
+  nodes: [device_signal!]!
+}
+
+"aggregate fields of \"device_signal\""
+type device_signal_aggregate_fields {
+  count(columns: [device_signal_select_column!], distinct: Boolean): Int
+  max: device_signal_max_fields
+  min: device_signal_min_fields
+}
+
+"aggregate max on columns"
+type device_signal_max_fields {
+  deviceId: String
+  event: String
+  id: uuid
+  machineId: String
+  timestamp: timestamptz
+}
+
+"aggregate min on columns"
+type device_signal_min_fields {
+  deviceId: String
+  event: String
+  id: uuid
+  machineId: String
+  timestamp: timestamptz
+}
+
+"response of any mutation on the table \"device_signal\""
+type device_signal_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "gql of the affected rows by the mutation"
+  returning: [device_signal!]!
+}
+
+"columns and relationships of \"machine\""
+type machine {
+  createdAt: timestamp!
+  "An array relationship"
+  device_signals(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): [device_signal!]!
+  "An aggregated array relationship"
+  device_signals_aggregate(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): device_signal_aggregate!
+  id: String!
+  "An array relationship"
+  machine_states(
+    "distinct select on columns"
+    distinct_on: [machine_state_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_state_order_by!]
+    "filter the rows returned"
+    where: machine_state_bool_exp
+  ): [machine_state!]!
+  "An aggregated array relationship"
+  machine_states_aggregate(
+    "distinct select on columns"
+    distinct_on: [machine_state_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_state_order_by!]
+    "filter the rows returned"
+    where: machine_state_bool_exp
+  ): machine_state_aggregate!
+  name: String!
+  updatedAt: timestamp!
+}
+
+"aggregated selection of \"machine\""
+type machine_aggregate {
+  aggregate: machine_aggregate_fields
+  nodes: [machine!]!
+}
+
+"aggregate fields of \"machine\""
+type machine_aggregate_fields {
+  count(columns: [machine_select_column!], distinct: Boolean): Int
+  max: machine_max_fields
+  min: machine_min_fields
+}
+
+"aggregate max on columns"
+type machine_max_fields {
+  createdAt: timestamp
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"aggregate min on columns"
+type machine_min_fields {
+  createdAt: timestamp
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"response of any mutation on the table \"machine\""
+type machine_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "gql of the affected rows by the mutation"
+  returning: [machine!]!
+}
+
+"columns and relationships of \"machine_state\""
+type machine_state {
+  closeSignalId: uuid!
+  createdAt: timestamp!
+  "An object relationship"
+  deviceSignalByClosesignalid: device_signal!
+  "An object relationship"
+  device_signal: device_signal!
+  duration: bigint!
+  "An object relationship"
+  machine: machine!
+  machineId: String!
+  openSignalId: uuid!
+  state: String!
+}
+
+"aggregated selection of \"machine_state\""
+type machine_state_aggregate {
+  aggregate: machine_state_aggregate_fields
+  nodes: [machine_state!]!
+}
+
+"aggregate fields of \"machine_state\""
+type machine_state_aggregate_fields {
+  avg: machine_state_avg_fields
+  count(columns: [machine_state_select_column!], distinct: Boolean): Int
+  max: machine_state_max_fields
+  min: machine_state_min_fields
+  stddev: machine_state_stddev_fields
+  stddev_pop: machine_state_stddev_pop_fields
+  stddev_samp: machine_state_stddev_samp_fields
+  sum: machine_state_sum_fields
+  var_pop: machine_state_var_pop_fields
+  var_samp: machine_state_var_samp_fields
+  variance: machine_state_variance_fields
+}
+
+"aggregate avg on columns"
+type machine_state_avg_fields {
+  duration: Float
+}
+
+"aggregate max on columns"
+type machine_state_max_fields {
+  closeSignalId: uuid
+  createdAt: timestamp
+  duration: bigint
+  machineId: String
+  openSignalId: uuid
+  state: String
+}
+
+"aggregate min on columns"
+type machine_state_min_fields {
+  closeSignalId: uuid
+  createdAt: timestamp
+  duration: bigint
+  machineId: String
+  openSignalId: uuid
+  state: String
+}
+
+"response of any mutation on the table \"machine_state\""
+type machine_state_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "gql of the affected rows by the mutation"
+  returning: [machine_state!]!
+}
+
+"aggregate stddev on columns"
+type machine_state_stddev_fields {
+  duration: Float
+}
+
+"aggregate stddev_pop on columns"
+type machine_state_stddev_pop_fields {
+  duration: Float
+}
+
+"aggregate stddev_samp on columns"
+type machine_state_stddev_samp_fields {
+  duration: Float
+}
+
+"aggregate sum on columns"
+type machine_state_sum_fields {
+  duration: bigint
+}
+
+"aggregate var_pop on columns"
+type machine_state_var_pop_fields {
+  duration: Float
+}
+
+"aggregate var_samp on columns"
+type machine_state_var_samp_fields {
+  duration: Float
+}
+
+"aggregate variance on columns"
+type machine_state_variance_fields {
+  duration: Float
+}
+
+"mutation root"
+type mutation_root {
+  "delete gql from the table: \"device\""
+  delete_device(
+    "filter the rows which have to be deleted"
+    where: device_bool_exp!
+  ): device_mutation_response
+  "delete single row from the table: \"device\""
+  delete_device_by_pk(id: String!): device
+  "delete gql from the table: \"device_signal\""
+  delete_device_signal(
+    "filter the rows which have to be deleted"
+    where: device_signal_bool_exp!
+  ): device_signal_mutation_response
+  "delete single row from the table: \"device_signal\""
+  delete_device_signal_by_pk(id: uuid!): device_signal
+  "delete gql from the table: \"machine\""
+  delete_machine(
+    "filter the rows which have to be deleted"
+    where: machine_bool_exp!
+  ): machine_mutation_response
+  "delete single row from the table: \"machine\""
+  delete_machine_by_pk(id: String!): machine
+  "delete gql from the table: \"machine_state\""
+  delete_machine_state(
+    "filter the rows which have to be deleted"
+    where: machine_state_bool_exp!
+  ): machine_state_mutation_response
+  "delete single row from the table: \"machine_state\""
+  delete_machine_state_by_pk(
+    closeSignalId: uuid!
+    machineId: String!
+    openSignalId: uuid!
+  ): machine_state
+  "delete gql from the table: \"user\""
+  delete_user(
+    "filter the rows which have to be deleted"
+    where: user_bool_exp!
+  ): user_mutation_response
+  "delete single row from the table: \"user\""
+  delete_user_by_pk(id: uuid!): user
+  "delete gql from the table: \"user_verification_code\""
+  delete_user_verification_code(
+    "filter the rows which have to be deleted"
+    where: user_verification_code_bool_exp!
+  ): user_verification_code_mutation_response
+  "delete single row from the table: \"user_verification_code\""
+  delete_user_verification_code_by_pk(id: uuid!): user_verification_code
+  forgotPassword(email: String!): ForgotPasswordResult!
+  "insert gql into the table: \"device\""
+  insert_device(
+    "the rows to be inserted"
+    objects: [device_insert_input!]!
+    "on conflict condition"
+    on_conflict: device_on_conflict
+  ): device_mutation_response
+  "insert a single row into the table: \"device\""
+  insert_device_one(
+    "the row to be inserted"
+    object: device_insert_input!
+    "on conflict condition"
+    on_conflict: device_on_conflict
+  ): device
+  "insert gql into the table: \"device_signal\""
+  insert_device_signal(
+    "the rows to be inserted"
+    objects: [device_signal_insert_input!]!
+    "on conflict condition"
+    on_conflict: device_signal_on_conflict
+  ): device_signal_mutation_response
+  "insert a single row into the table: \"device_signal\""
+  insert_device_signal_one(
+    "the row to be inserted"
+    object: device_signal_insert_input!
+    "on conflict condition"
+    on_conflict: device_signal_on_conflict
+  ): device_signal
+  "insert gql into the table: \"machine\""
+  insert_machine(
+    "the rows to be inserted"
+    objects: [machine_insert_input!]!
+    "on conflict condition"
+    on_conflict: machine_on_conflict
+  ): machine_mutation_response
+  "insert a single row into the table: \"machine\""
+  insert_machine_one(
+    "the row to be inserted"
+    object: machine_insert_input!
+    "on conflict condition"
+    on_conflict: machine_on_conflict
+  ): machine
+  "insert gql into the table: \"machine_state\""
+  insert_machine_state(
+    "the rows to be inserted"
+    objects: [machine_state_insert_input!]!
+    "on conflict condition"
+    on_conflict: machine_state_on_conflict
+  ): machine_state_mutation_response
+  "insert a single row into the table: \"machine_state\""
+  insert_machine_state_one(
+    "the row to be inserted"
+    object: machine_state_insert_input!
+    "on conflict condition"
+    on_conflict: machine_state_on_conflict
+  ): machine_state
+  "insert gql into the table: \"user\""
+  insert_user(
+    "the rows to be inserted"
+    objects: [user_insert_input!]!
+    "on conflict condition"
+    on_conflict: user_on_conflict
+  ): user_mutation_response
+  "insert a single row into the table: \"user\""
+  insert_user_one(
+    "the row to be inserted"
+    object: user_insert_input!
+    "on conflict condition"
+    on_conflict: user_on_conflict
+  ): user
+  "insert gql into the table: \"user_verification_code\""
+  insert_user_verification_code(
+    "the rows to be inserted"
+    objects: [user_verification_code_insert_input!]!
+    "on conflict condition"
+    on_conflict: user_verification_code_on_conflict
+  ): user_verification_code_mutation_response
+  "insert a single row into the table: \"user_verification_code\""
+  insert_user_verification_code_one(
+    "the row to be inserted"
+    object: user_verification_code_insert_input!
+    "on conflict condition"
+    on_conflict: user_verification_code_on_conflict
+  ): user_verification_code
+  login(email: String!, password: String!): LoginResult!
+  resendCode(verificationId: String!): Verification!
+  restorePassword(
+    newPassword: String!
+    verification: VerificationInput!
+  ): PasswordChanged!
+  signup(email: String!, password: String!): SignUpResult!
+  "update gql of the table: \"device\""
+  update_device(
+    "sets the columns of the filtered rows to the given values"
+    _set: device_set_input
+    "filter the rows which have to be updated"
+    where: device_bool_exp!
+  ): device_mutation_response
+  "update single row of the table: \"device\""
+  update_device_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: device_set_input
+    pk_columns: device_pk_columns_input!
+  ): device
+  "update gql of the table: \"device_signal\""
+  update_device_signal(
+    "append existing jsonb value of filtered columns with new jsonb value"
+    _append: device_signal_append_input
+    "delete the field or element with specified path (for JSON arrays, negative integers count from the end)"
+    _delete_at_path: device_signal_delete_at_path_input
+    "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array"
+    _delete_elem: device_signal_delete_elem_input
+    "delete key/value pair or string element. key/value pairs are matched based on their key value"
+    _delete_key: device_signal_delete_key_input
+    "prepend existing jsonb value of filtered columns with new jsonb value"
+    _prepend: device_signal_prepend_input
+    "sets the columns of the filtered rows to the given values"
+    _set: device_signal_set_input
+    "filter the rows which have to be updated"
+    where: device_signal_bool_exp!
+  ): device_signal_mutation_response
+  "update single row of the table: \"device_signal\""
+  update_device_signal_by_pk(
+    "append existing jsonb value of filtered columns with new jsonb value"
+    _append: device_signal_append_input
+    "delete the field or element with specified path (for JSON arrays, negative integers count from the end)"
+    _delete_at_path: device_signal_delete_at_path_input
+    "delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array"
+    _delete_elem: device_signal_delete_elem_input
+    "delete key/value pair or string element. key/value pairs are matched based on their key value"
+    _delete_key: device_signal_delete_key_input
+    "prepend existing jsonb value of filtered columns with new jsonb value"
+    _prepend: device_signal_prepend_input
+    "sets the columns of the filtered rows to the given values"
+    _set: device_signal_set_input
+    pk_columns: device_signal_pk_columns_input!
+  ): device_signal
+  "update gql of the table: \"machine\""
+  update_machine(
+    "sets the columns of the filtered rows to the given values"
+    _set: machine_set_input
+    "filter the rows which have to be updated"
+    where: machine_bool_exp!
+  ): machine_mutation_response
+  "update single row of the table: \"machine\""
+  update_machine_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: machine_set_input
+    pk_columns: machine_pk_columns_input!
+  ): machine
+  "update gql of the table: \"machine_state\""
+  update_machine_state(
+    "increments the integer columns with given value of the filtered values"
+    _inc: machine_state_inc_input
+    "sets the columns of the filtered rows to the given values"
+    _set: machine_state_set_input
+    "filter the rows which have to be updated"
+    where: machine_state_bool_exp!
+  ): machine_state_mutation_response
+  "update single row of the table: \"machine_state\""
+  update_machine_state_by_pk(
+    "increments the integer columns with given value of the filtered values"
+    _inc: machine_state_inc_input
+    "sets the columns of the filtered rows to the given values"
+    _set: machine_state_set_input
+    pk_columns: machine_state_pk_columns_input!
+  ): machine_state
+  "update gql of the table: \"user\""
+  update_user(
+    "sets the columns of the filtered rows to the given values"
+    _set: user_set_input
+    "filter the rows which have to be updated"
+    where: user_bool_exp!
+  ): user_mutation_response
+  "update single row of the table: \"user\""
+  update_user_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: user_set_input
+    pk_columns: user_pk_columns_input!
+  ): user
+  "update gql of the table: \"user_verification_code\""
+  update_user_verification_code(
+    "sets the columns of the filtered rows to the given values"
+    _set: user_verification_code_set_input
+    "filter the rows which have to be updated"
+    where: user_verification_code_bool_exp!
+  ): user_verification_code_mutation_response
+  "update single row of the table: \"user_verification_code\""
+  update_user_verification_code_by_pk(
+    "sets the columns of the filtered rows to the given values"
+    _set: user_verification_code_set_input
+    pk_columns: user_verification_code_pk_columns_input!
+  ): user_verification_code
+  uploadProfileImage(image: Upload!): Boolean!
+  verify(verification: VerificationInput!): String!
+}
+
+"query root"
+type query_root {
+  "fetch gql from the table: \"device\""
+  device(
+    "distinct select on columns"
+    distinct_on: [device_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_order_by!]
+    "filter the rows returned"
+    where: device_bool_exp
+  ): [device!]!
+  "fetch aggregated fields from the table: \"device\""
+  device_aggregate(
+    "distinct select on columns"
+    distinct_on: [device_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_order_by!]
+    "filter the rows returned"
+    where: device_bool_exp
+  ): device_aggregate!
+  "fetch gql from the table: \"device\" using primary key columns"
+  device_by_pk(id: String!): device
+  "fetch gql from the table: \"device_signal\""
+  device_signal(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): [device_signal!]!
+  "fetch aggregated fields from the table: \"device_signal\""
+  device_signal_aggregate(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): device_signal_aggregate!
+  "fetch gql from the table: \"device_signal\" using primary key columns"
+  device_signal_by_pk(id: uuid!): device_signal
+  "fetch gql from the table: \"machine\""
+  machine(
+    "distinct select on columns"
+    distinct_on: [machine_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_order_by!]
+    "filter the rows returned"
+    where: machine_bool_exp
+  ): [machine!]!
+  "fetch aggregated fields from the table: \"machine\""
+  machine_aggregate(
+    "distinct select on columns"
+    distinct_on: [machine_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_order_by!]
+    "filter the rows returned"
+    where: machine_bool_exp
+  ): machine_aggregate!
+  "fetch gql from the table: \"machine\" using primary key columns"
+  machine_by_pk(id: String!): machine
+  "fetch gql from the table: \"machine_state\""
+  machine_state(
+    "distinct select on columns"
+    distinct_on: [machine_state_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_state_order_by!]
+    "filter the rows returned"
+    where: machine_state_bool_exp
+  ): [machine_state!]!
+  "fetch aggregated fields from the table: \"machine_state\""
+  machine_state_aggregate(
+    "distinct select on columns"
+    distinct_on: [machine_state_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_state_order_by!]
+    "filter the rows returned"
+    where: machine_state_bool_exp
+  ): machine_state_aggregate!
+  "fetch gql from the table: \"machine_state\" using primary key columns"
+  machine_state_by_pk(
+    closeSignalId: uuid!
+    machineId: String!
+    openSignalId: uuid!
+  ): machine_state
+  me: Me!
+  "fetch gql from the table: \"user\""
+  user(
+    "distinct select on columns"
+    distinct_on: [user_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_order_by!]
+    "filter the rows returned"
+    where: user_bool_exp
+  ): [user!]!
+  "fetch aggregated fields from the table: \"user\""
+  user_aggregate(
+    "distinct select on columns"
+    distinct_on: [user_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_order_by!]
+    "filter the rows returned"
+    where: user_bool_exp
+  ): user_aggregate!
+  "fetch gql from the table: \"user\" using primary key columns"
+  user_by_pk(id: uuid!): user
+  "fetch gql from the table: \"user_verification_code\""
+  user_verification_code(
+    "distinct select on columns"
+    distinct_on: [user_verification_code_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_verification_code_order_by!]
+    "filter the rows returned"
+    where: user_verification_code_bool_exp
+  ): [user_verification_code!]!
+  "fetch aggregated fields from the table: \"user_verification_code\""
+  user_verification_code_aggregate(
+    "distinct select on columns"
+    distinct_on: [user_verification_code_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_verification_code_order_by!]
+    "filter the rows returned"
+    where: user_verification_code_bool_exp
+  ): user_verification_code_aggregate!
+  "fetch gql from the table: \"user_verification_code\" using primary key columns"
+  user_verification_code_by_pk(id: uuid!): user_verification_code
+}
+
+"subscription root"
+type subscription_root {
+  "fetch gql from the table: \"device\""
+  device(
+    "distinct select on columns"
+    distinct_on: [device_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_order_by!]
+    "filter the rows returned"
+    where: device_bool_exp
+  ): [device!]!
+  "fetch aggregated fields from the table: \"device\""
+  device_aggregate(
+    "distinct select on columns"
+    distinct_on: [device_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_order_by!]
+    "filter the rows returned"
+    where: device_bool_exp
+  ): device_aggregate!
+  "fetch gql from the table: \"device\" using primary key columns"
+  device_by_pk(id: String!): device
+  "fetch gql from the table: \"device_signal\""
+  device_signal(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): [device_signal!]!
+  "fetch aggregated fields from the table: \"device_signal\""
+  device_signal_aggregate(
+    "distinct select on columns"
+    distinct_on: [device_signal_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [device_signal_order_by!]
+    "filter the rows returned"
+    where: device_signal_bool_exp
+  ): device_signal_aggregate!
+  "fetch gql from the table: \"device_signal\" using primary key columns"
+  device_signal_by_pk(id: uuid!): device_signal
+  "fetch gql from the table: \"machine\""
+  machine(
+    "distinct select on columns"
+    distinct_on: [machine_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_order_by!]
+    "filter the rows returned"
+    where: machine_bool_exp
+  ): [machine!]!
+  "fetch aggregated fields from the table: \"machine\""
+  machine_aggregate(
+    "distinct select on columns"
+    distinct_on: [machine_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_order_by!]
+    "filter the rows returned"
+    where: machine_bool_exp
+  ): machine_aggregate!
+  "fetch gql from the table: \"machine\" using primary key columns"
+  machine_by_pk(id: String!): machine
+  "fetch gql from the table: \"machine_state\""
+  machine_state(
+    "distinct select on columns"
+    distinct_on: [machine_state_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_state_order_by!]
+    "filter the rows returned"
+    where: machine_state_bool_exp
+  ): [machine_state!]!
+  "fetch aggregated fields from the table: \"machine_state\""
+  machine_state_aggregate(
+    "distinct select on columns"
+    distinct_on: [machine_state_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [machine_state_order_by!]
+    "filter the rows returned"
+    where: machine_state_bool_exp
+  ): machine_state_aggregate!
+  "fetch gql from the table: \"machine_state\" using primary key columns"
+  machine_state_by_pk(
+    closeSignalId: uuid!
+    machineId: String!
+    openSignalId: uuid!
+  ): machine_state
+  "fetch gql from the table: \"user\""
+  user(
+    "distinct select on columns"
+    distinct_on: [user_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_order_by!]
+    "filter the rows returned"
+    where: user_bool_exp
+  ): [user!]!
+  "fetch aggregated fields from the table: \"user\""
+  user_aggregate(
+    "distinct select on columns"
+    distinct_on: [user_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_order_by!]
+    "filter the rows returned"
+    where: user_bool_exp
+  ): user_aggregate!
+  "fetch gql from the table: \"user\" using primary key columns"
+  user_by_pk(id: uuid!): user
+  "fetch gql from the table: \"user_verification_code\""
+  user_verification_code(
+    "distinct select on columns"
+    distinct_on: [user_verification_code_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_verification_code_order_by!]
+    "filter the rows returned"
+    where: user_verification_code_bool_exp
+  ): [user_verification_code!]!
+  "fetch aggregated fields from the table: \"user_verification_code\""
+  user_verification_code_aggregate(
+    "distinct select on columns"
+    distinct_on: [user_verification_code_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_verification_code_order_by!]
+    "filter the rows returned"
+    where: user_verification_code_bool_exp
+  ): user_verification_code_aggregate!
+  "fetch gql from the table: \"user_verification_code\" using primary key columns"
+  user_verification_code_by_pk(id: uuid!): user_verification_code
+}
+
+"columns and relationships of \"user\""
+type user {
+  createdAt: timestamp!
+  email: String!
+  firstName: String!
+  id: uuid!
+  lastName: String!
+  passwordHash: String!
+  phone: String
+  salt: String!
+  updatedAt: timestamp!
+  "An array relationship"
+  user_verification_codes(
+    "distinct select on columns"
+    distinct_on: [user_verification_code_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_verification_code_order_by!]
+    "filter the rows returned"
+    where: user_verification_code_bool_exp
+  ): [user_verification_code!]!
+  "An aggregated array relationship"
+  user_verification_codes_aggregate(
+    "distinct select on columns"
+    distinct_on: [user_verification_code_select_column!]
+    "limit the number of rows returned"
+    limit: Int
+    "skip the first n rows. Use only with order_by"
+    offset: Int
+    "sort the rows by one or more columns"
+    order_by: [user_verification_code_order_by!]
+    "filter the rows returned"
+    where: user_verification_code_bool_exp
+  ): user_verification_code_aggregate!
+  username: String!
+  verified: Boolean!
+}
+
+"aggregated selection of \"user\""
+type user_aggregate {
+  aggregate: user_aggregate_fields
+  nodes: [user!]!
+}
+
+"aggregate fields of \"user\""
+type user_aggregate_fields {
+  count(columns: [user_select_column!], distinct: Boolean): Int
+  max: user_max_fields
+  min: user_min_fields
+}
+
+"aggregate max on columns"
+type user_max_fields {
+  createdAt: timestamp
+  email: String
+  firstName: String
+  id: uuid
+  lastName: String
+  passwordHash: String
+  phone: String
+  salt: String
+  updatedAt: timestamp
+  username: String
+}
+
+"aggregate min on columns"
+type user_min_fields {
+  createdAt: timestamp
+  email: String
+  firstName: String
+  id: uuid
+  lastName: String
+  passwordHash: String
+  phone: String
+  salt: String
+  updatedAt: timestamp
+  username: String
+}
+
+"response of any mutation on the table \"user\""
+type user_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "gql of the affected rows by the mutation"
+  returning: [user!]!
+}
+
+"columns and relationships of \"user_verification_code\""
+type user_verification_code {
+  code: String!
+  createdAt: timestamp!
+  expiresAt: timestamptz!
+  id: uuid!
+  "An object relationship"
+  user: user
+  userId: uuid
+}
+
+"aggregated selection of \"user_verification_code\""
+type user_verification_code_aggregate {
+  aggregate: user_verification_code_aggregate_fields
+  nodes: [user_verification_code!]!
+}
+
+"aggregate fields of \"user_verification_code\""
+type user_verification_code_aggregate_fields {
+  count(
+    columns: [user_verification_code_select_column!]
+    distinct: Boolean
+  ): Int
+  max: user_verification_code_max_fields
+  min: user_verification_code_min_fields
+}
+
+"aggregate max on columns"
+type user_verification_code_max_fields {
+  code: String
+  createdAt: timestamp
+  expiresAt: timestamptz
+  id: uuid
+  userId: uuid
+}
+
+"aggregate min on columns"
+type user_verification_code_min_fields {
+  code: String
+  createdAt: timestamp
+  expiresAt: timestamptz
+  id: uuid
+  userId: uuid
+}
+
+"response of any mutation on the table \"user_verification_code\""
+type user_verification_code_mutation_response {
+  "number of affected rows by the mutation"
+  affected_rows: Int!
+  "gql of the affected rows by the mutation"
+  returning: [user_verification_code!]!
+}
+
+"unique or primary key constraints on table \"device\""
+enum device_constraint {
+  "unique or primary key constraint"
+  PK_2dc10972aa4e27c01378dad2c72
+}
+
+"select columns of table \"device\""
+enum device_select_column {
+  "column name"
+  createdAt
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  updatedAt
+}
+
+"unique or primary key constraints on table \"device_signal\""
+enum device_signal_constraint {
+  "unique or primary key constraint"
+  PK_5327c90defa854436ea519bbde8
+}
+
+"select columns of table \"device_signal\""
+enum device_signal_select_column {
+  "column name"
+  deviceId
+  "column name"
+  event
+  "column name"
+  id
+  "column name"
+  machineId
+  "column name"
+  payload
+  "column name"
+  timestamp
+}
+
+"update columns of table \"device_signal\""
+enum device_signal_update_column {
+  "column name"
+  deviceId
+  "column name"
+  event
+  "column name"
+  id
+  "column name"
+  machineId
+  "column name"
+  payload
+  "column name"
+  timestamp
+}
+
+"update columns of table \"device\""
+enum device_update_column {
+  "column name"
+  createdAt
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  updatedAt
+}
+
+"unique or primary key constraints on table \"machine\""
+enum machine_constraint {
+  "unique or primary key constraint"
+  PK_acc588900ffa841d96eb5fd566c
+}
+
+"select columns of table \"machine\""
+enum machine_select_column {
+  "column name"
+  createdAt
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  updatedAt
+}
+
+"unique or primary key constraints on table \"machine_state\""
+enum machine_state_constraint {
+  "unique or primary key constraint"
+  PK_472e55b3b64795a303750182136
+  "unique or primary key constraint"
+  REL_54bf57abfb9fed2e2591f6f795
+  "unique or primary key constraint"
+  REL_ebbef3e028f6452658c7b6ac9c
+}
+
+"select columns of table \"machine_state\""
+enum machine_state_select_column {
+  "column name"
+  closeSignalId
+  "column name"
+  createdAt
+  "column name"
+  duration
+  "column name"
+  machineId
+  "column name"
+  openSignalId
+  "column name"
+  state
+}
+
+"update columns of table \"machine_state\""
+enum machine_state_update_column {
+  "column name"
+  closeSignalId
+  "column name"
+  createdAt
+  "column name"
+  duration
+  "column name"
+  machineId
+  "column name"
+  openSignalId
+  "column name"
+  state
+}
+
+"update columns of table \"machine\""
+enum machine_update_column {
+  "column name"
+  createdAt
+  "column name"
+  id
+  "column name"
+  name
+  "column name"
+  updatedAt
+}
+
+"column ordering options"
+enum order_by {
+  "in the ascending order, nulls last"
+  asc
+  "in the ascending order, nulls first"
+  asc_nulls_first
+  "in the ascending order, nulls last"
+  asc_nulls_last
+  "in the descending order, nulls first"
+  desc
+  "in the descending order, nulls first"
+  desc_nulls_first
+  "in the descending order, nulls last"
+  desc_nulls_last
+}
+
+"unique or primary key constraints on table \"user\""
+enum user_constraint {
+  "unique or primary key constraint"
+  UQ_8e1f623798118e629b46a9e6299
+  "unique or primary key constraint"
+  UQ_e12875dfb3b1d92d7d7c5377e22
+  "unique or primary key constraint"
+  user_pkey
+}
+
+"select columns of table \"user\""
+enum user_select_column {
+  "column name"
+  createdAt
+  "column name"
+  email
+  "column name"
+  firstName
+  "column name"
+  id
+  "column name"
+  lastName
+  "column name"
+  passwordHash
+  "column name"
+  phone
+  "column name"
+  salt
+  "column name"
+  updatedAt
+  "column name"
+  username
+  "column name"
+  verified
+}
+
+"update columns of table \"user\""
+enum user_update_column {
+  "column name"
+  createdAt
+  "column name"
+  email
+  "column name"
+  firstName
+  "column name"
+  id
+  "column name"
+  lastName
+  "column name"
+  passwordHash
+  "column name"
+  phone
+  "column name"
+  salt
+  "column name"
+  updatedAt
+  "column name"
+  username
+  "column name"
+  verified
+}
+
+"unique or primary key constraints on table \"user_verification_code\""
+enum user_verification_code_constraint {
+  "unique or primary key constraint"
+  PK_a82f7853b7c83fb01318ed276e1
+  "unique or primary key constraint"
+  UQ_3a0a432bdb975b5c74b48431359
+}
+
+"select columns of table \"user_verification_code\""
+enum user_verification_code_select_column {
+  "column name"
+  code
+  "column name"
+  createdAt
+  "column name"
+  expiresAt
+  "column name"
+  id
+  "column name"
+  userId
+}
+
+"update columns of table \"user_verification_code\""
+enum user_verification_code_update_column {
+  "column name"
+  code
+  "column name"
+  createdAt
+  "column name"
+  expiresAt
+  "column name"
+  id
+  "column name"
+  userId
+}
+
+"expression to compare columns of type Boolean. All fields are combined with logical 'AND'."
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"expression to compare columns of type String. All fields are combined with logical 'AND'."
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+input VerificationInput {
+  code: String!
+  id: String!
+}
+
+"expression to compare columns of type bigint. All fields are combined with logical 'AND'."
+input bigint_comparison_exp {
+  _eq: bigint
+  _gt: bigint
+  _gte: bigint
+  _in: [bigint!]
+  _is_null: Boolean
+  _lt: bigint
+  _lte: bigint
+  _neq: bigint
+  _nin: [bigint!]
+}
+
+"order by aggregate values of table \"device\""
+input device_aggregate_order_by {
+  count: order_by
+  max: device_max_order_by
+  min: device_min_order_by
+}
+
+"input type for inserting array relation for remote table \"device\""
+input device_arr_rel_insert_input {
+  data: [device_insert_input!]!
+  on_conflict: device_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"device\". All fields are combined with a logical 'AND'."
+input device_bool_exp {
+  _and: [device_bool_exp]
+  _not: device_bool_exp
+  _or: [device_bool_exp]
+  createdAt: timestamp_comparison_exp
+  device_signals: device_signal_bool_exp
+  id: String_comparison_exp
+  name: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"input type for inserting gql into table \"device\""
+input device_insert_input {
+  createdAt: timestamp
+  device_signals: device_signal_arr_rel_insert_input
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"order by max() on columns of table \"device\""
+input device_max_order_by {
+  createdAt: order_by
+  id: order_by
+  name: order_by
+  updatedAt: order_by
+}
+
+"order by min() on columns of table \"device\""
+input device_min_order_by {
+  createdAt: order_by
+  id: order_by
+  name: order_by
+  updatedAt: order_by
+}
+
+"input type for inserting object relation for remote table \"device\""
+input device_obj_rel_insert_input {
+  data: device_insert_input!
+  on_conflict: device_on_conflict
+}
+
+"on conflict condition type for table \"device\""
+input device_on_conflict {
+  constraint: device_constraint!
+  update_columns: [device_update_column!]!
+  where: device_bool_exp
+}
+
+"ordering options when selecting gql from \"device\""
+input device_order_by {
+  createdAt: order_by
+  device_signals_aggregate: device_signal_aggregate_order_by
+  id: order_by
+  name: order_by
+  updatedAt: order_by
+}
+
+"primary key columns input for table: \"device\""
+input device_pk_columns_input {
+  id: String!
+}
+
+"input type for updating gql in table \"device\""
+input device_set_input {
+  createdAt: timestamp
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"order by aggregate values of table \"device_signal\""
+input device_signal_aggregate_order_by {
+  count: order_by
+  max: device_signal_max_order_by
+  min: device_signal_min_order_by
+}
+
+"append existing jsonb value of filtered columns with new jsonb value"
+input device_signal_append_input {
+  payload: jsonb
+}
+
+"input type for inserting array relation for remote table \"device_signal\""
+input device_signal_arr_rel_insert_input {
+  data: [device_signal_insert_input!]!
+  on_conflict: device_signal_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"device_signal\". All fields are combined with a logical 'AND'."
+input device_signal_bool_exp {
+  _and: [device_signal_bool_exp]
+  _not: device_signal_bool_exp
+  _or: [device_signal_bool_exp]
+  device: device_bool_exp
+  deviceId: String_comparison_exp
+  event: String_comparison_exp
+  id: uuid_comparison_exp
+  machine: machine_bool_exp
+  machineId: String_comparison_exp
+  machineStateById: machine_state_bool_exp
+  machine_state: machine_state_bool_exp
+  payload: jsonb_comparison_exp
+  timestamp: timestamptz_comparison_exp
+}
+
+"delete the field or element with specified path (for JSON arrays, negative integers count from the end)"
+input device_signal_delete_at_path_input {
+  payload: [String]
+}
+
+"delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array"
+input device_signal_delete_elem_input {
+  payload: Int
+}
+
+"delete key/value pair or string element. key/value pairs are matched based on their key value"
+input device_signal_delete_key_input {
+  payload: String
+}
+
+"input type for inserting gql into table \"device_signal\""
+input device_signal_insert_input {
+  device: device_obj_rel_insert_input
+  deviceId: String
+  event: String
+  id: uuid
+  machine: machine_obj_rel_insert_input
+  machineId: String
+  machineStateById: machine_state_obj_rel_insert_input
+  machine_state: machine_state_obj_rel_insert_input
+  payload: jsonb
+  timestamp: timestamptz
+}
+
+"order by max() on columns of table \"device_signal\""
+input device_signal_max_order_by {
+  deviceId: order_by
+  event: order_by
+  id: order_by
+  machineId: order_by
+  timestamp: order_by
+}
+
+"order by min() on columns of table \"device_signal\""
+input device_signal_min_order_by {
+  deviceId: order_by
+  event: order_by
+  id: order_by
+  machineId: order_by
+  timestamp: order_by
+}
+
+"input type for inserting object relation for remote table \"device_signal\""
+input device_signal_obj_rel_insert_input {
+  data: device_signal_insert_input!
+  on_conflict: device_signal_on_conflict
+}
+
+"on conflict condition type for table \"device_signal\""
+input device_signal_on_conflict {
+  constraint: device_signal_constraint!
+  update_columns: [device_signal_update_column!]!
+  where: device_signal_bool_exp
+}
+
+"ordering options when selecting gql from \"device_signal\""
+input device_signal_order_by {
+  device: device_order_by
+  deviceId: order_by
+  event: order_by
+  id: order_by
+  machine: machine_order_by
+  machineId: order_by
+  machineStateById: machine_state_order_by
+  machine_state: machine_state_order_by
+  payload: order_by
+  timestamp: order_by
+}
+
+"primary key columns input for table: \"device_signal\""
+input device_signal_pk_columns_input {
+  id: uuid!
+}
+
+"prepend existing jsonb value of filtered columns with new jsonb value"
+input device_signal_prepend_input {
+  payload: jsonb
+}
+
+"input type for updating gql in table \"device_signal\""
+input device_signal_set_input {
+  deviceId: String
+  event: String
+  id: uuid
+  machineId: String
+  payload: jsonb
+  timestamp: timestamptz
+}
+
+"expression to compare columns of type jsonb. All fields are combined with logical 'AND'."
+input jsonb_comparison_exp {
+  "is the column contained in the given json value"
+  _contained_in: jsonb
+  "does the column contain the given json value at the top level"
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+  "does the string exist as a top-level key in the column"
+  _has_key: String
+  "do all of these strings exist as top-level keys in the column"
+  _has_keys_all: [String!]
+  "do any of these strings exist as top-level keys in the column"
+  _has_keys_any: [String!]
+  _in: [jsonb!]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb!]
+}
+
+"order by aggregate values of table \"machine\""
+input machine_aggregate_order_by {
+  count: order_by
+  max: machine_max_order_by
+  min: machine_min_order_by
+}
+
+"input type for inserting array relation for remote table \"machine\""
+input machine_arr_rel_insert_input {
+  data: [machine_insert_input!]!
+  on_conflict: machine_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"machine\". All fields are combined with a logical 'AND'."
+input machine_bool_exp {
+  _and: [machine_bool_exp]
+  _not: machine_bool_exp
+  _or: [machine_bool_exp]
+  createdAt: timestamp_comparison_exp
+  device_signals: device_signal_bool_exp
+  id: String_comparison_exp
+  machine_states: machine_state_bool_exp
+  name: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"input type for inserting gql into table \"machine\""
+input machine_insert_input {
+  createdAt: timestamp
+  device_signals: device_signal_arr_rel_insert_input
+  id: String
+  machine_states: machine_state_arr_rel_insert_input
+  name: String
+  updatedAt: timestamp
+}
+
+"order by max() on columns of table \"machine\""
+input machine_max_order_by {
+  createdAt: order_by
+  id: order_by
+  name: order_by
+  updatedAt: order_by
+}
+
+"order by min() on columns of table \"machine\""
+input machine_min_order_by {
+  createdAt: order_by
+  id: order_by
+  name: order_by
+  updatedAt: order_by
+}
+
+"input type for inserting object relation for remote table \"machine\""
+input machine_obj_rel_insert_input {
+  data: machine_insert_input!
+  on_conflict: machine_on_conflict
+}
+
+"on conflict condition type for table \"machine\""
+input machine_on_conflict {
+  constraint: machine_constraint!
+  update_columns: [machine_update_column!]!
+  where: machine_bool_exp
+}
+
+"ordering options when selecting gql from \"machine\""
+input machine_order_by {
+  createdAt: order_by
+  device_signals_aggregate: device_signal_aggregate_order_by
+  id: order_by
+  machine_states_aggregate: machine_state_aggregate_order_by
+  name: order_by
+  updatedAt: order_by
+}
+
+"primary key columns input for table: \"machine\""
+input machine_pk_columns_input {
+  id: String!
+}
+
+"input type for updating gql in table \"machine\""
+input machine_set_input {
+  createdAt: timestamp
+  id: String
+  name: String
+  updatedAt: timestamp
+}
+
+"order by aggregate values of table \"machine_state\""
+input machine_state_aggregate_order_by {
+  avg: machine_state_avg_order_by
+  count: order_by
+  max: machine_state_max_order_by
+  min: machine_state_min_order_by
+  stddev: machine_state_stddev_order_by
+  stddev_pop: machine_state_stddev_pop_order_by
+  stddev_samp: machine_state_stddev_samp_order_by
+  sum: machine_state_sum_order_by
+  var_pop: machine_state_var_pop_order_by
+  var_samp: machine_state_var_samp_order_by
+  variance: machine_state_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"machine_state\""
+input machine_state_arr_rel_insert_input {
+  data: [machine_state_insert_input!]!
+  on_conflict: machine_state_on_conflict
+}
+
+"order by avg() on columns of table \"machine_state\""
+input machine_state_avg_order_by {
+  duration: order_by
+}
+
+"Boolean expression to filter rows from the table \"machine_state\". All fields are combined with a logical 'AND'."
+input machine_state_bool_exp {
+  _and: [machine_state_bool_exp]
+  _not: machine_state_bool_exp
+  _or: [machine_state_bool_exp]
+  closeSignalId: uuid_comparison_exp
+  createdAt: timestamp_comparison_exp
+  deviceSignalByClosesignalid: device_signal_bool_exp
+  device_signal: device_signal_bool_exp
+  duration: bigint_comparison_exp
+  machine: machine_bool_exp
+  machineId: String_comparison_exp
+  openSignalId: uuid_comparison_exp
+  state: String_comparison_exp
+}
+
+"input type for incrementing integer column in table \"machine_state\""
+input machine_state_inc_input {
+  duration: bigint
+}
+
+"input type for inserting gql into table \"machine_state\""
+input machine_state_insert_input {
+  closeSignalId: uuid
+  createdAt: timestamp
+  deviceSignalByClosesignalid: device_signal_obj_rel_insert_input
+  device_signal: device_signal_obj_rel_insert_input
+  duration: bigint
+  machine: machine_obj_rel_insert_input
+  machineId: String
+  openSignalId: uuid
+  state: String
+}
+
+"order by max() on columns of table \"machine_state\""
+input machine_state_max_order_by {
+  closeSignalId: order_by
+  createdAt: order_by
+  duration: order_by
+  machineId: order_by
+  openSignalId: order_by
+  state: order_by
+}
+
+"order by min() on columns of table \"machine_state\""
+input machine_state_min_order_by {
+  closeSignalId: order_by
+  createdAt: order_by
+  duration: order_by
+  machineId: order_by
+  openSignalId: order_by
+  state: order_by
+}
+
+"input type for inserting object relation for remote table \"machine_state\""
+input machine_state_obj_rel_insert_input {
+  data: machine_state_insert_input!
+  on_conflict: machine_state_on_conflict
+}
+
+"on conflict condition type for table \"machine_state\""
+input machine_state_on_conflict {
+  constraint: machine_state_constraint!
+  update_columns: [machine_state_update_column!]!
+  where: machine_state_bool_exp
+}
+
+"ordering options when selecting gql from \"machine_state\""
+input machine_state_order_by {
+  closeSignalId: order_by
+  createdAt: order_by
+  deviceSignalByClosesignalid: device_signal_order_by
+  device_signal: device_signal_order_by
+  duration: order_by
+  machine: machine_order_by
+  machineId: order_by
+  openSignalId: order_by
+  state: order_by
+}
+
+"primary key columns input for table: \"machine_state\""
+input machine_state_pk_columns_input {
+  closeSignalId: uuid!
+  machineId: String!
+  openSignalId: uuid!
+}
+
+"input type for updating gql in table \"machine_state\""
+input machine_state_set_input {
+  closeSignalId: uuid
+  createdAt: timestamp
+  duration: bigint
+  machineId: String
+  openSignalId: uuid
+  state: String
+}
+
+"order by stddev() on columns of table \"machine_state\""
+input machine_state_stddev_order_by {
+  duration: order_by
+}
+
+"order by stddev_pop() on columns of table \"machine_state\""
+input machine_state_stddev_pop_order_by {
+  duration: order_by
+}
+
+"order by stddev_samp() on columns of table \"machine_state\""
+input machine_state_stddev_samp_order_by {
+  duration: order_by
+}
+
+"order by sum() on columns of table \"machine_state\""
+input machine_state_sum_order_by {
+  duration: order_by
+}
+
+"order by var_pop() on columns of table \"machine_state\""
+input machine_state_var_pop_order_by {
+  duration: order_by
+}
+
+"order by var_samp() on columns of table \"machine_state\""
+input machine_state_var_samp_order_by {
+  duration: order_by
+}
+
+"order by variance() on columns of table \"machine_state\""
+input machine_state_variance_order_by {
+  duration: order_by
+}
+
+"expression to compare columns of type timestamp. All fields are combined with logical 'AND'."
+input timestamp_comparison_exp {
+  _eq: timestamp
+  _gt: timestamp
+  _gte: timestamp
+  _in: [timestamp!]
+  _is_null: Boolean
+  _lt: timestamp
+  _lte: timestamp
+  _neq: timestamp
+  _nin: [timestamp!]
+}
+
+"expression to compare columns of type timestamptz. All fields are combined with logical 'AND'."
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"order by aggregate values of table \"user\""
+input user_aggregate_order_by {
+  count: order_by
+  max: user_max_order_by
+  min: user_min_order_by
+}
+
+"input type for inserting array relation for remote table \"user\""
+input user_arr_rel_insert_input {
+  data: [user_insert_input!]!
+  on_conflict: user_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"user\". All fields are combined with a logical 'AND'."
+input user_bool_exp {
+  _and: [user_bool_exp]
+  _not: user_bool_exp
+  _or: [user_bool_exp]
+  createdAt: timestamp_comparison_exp
+  email: String_comparison_exp
+  firstName: String_comparison_exp
+  id: uuid_comparison_exp
+  lastName: String_comparison_exp
+  passwordHash: String_comparison_exp
+  phone: String_comparison_exp
+  salt: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  user_verification_codes: user_verification_code_bool_exp
+  username: String_comparison_exp
+  verified: Boolean_comparison_exp
+}
+
+"input type for inserting gql into table \"user\""
+input user_insert_input {
+  createdAt: timestamp
+  email: String
+  firstName: String
+  id: uuid
+  lastName: String
+  passwordHash: String
+  phone: String
+  salt: String
+  updatedAt: timestamp
+  user_verification_codes: user_verification_code_arr_rel_insert_input
+  username: String
+  verified: Boolean
+}
+
+"order by max() on columns of table \"user\""
+input user_max_order_by {
+  createdAt: order_by
+  email: order_by
+  firstName: order_by
+  id: order_by
+  lastName: order_by
+  passwordHash: order_by
+  phone: order_by
+  salt: order_by
+  updatedAt: order_by
+  username: order_by
+}
+
+"order by min() on columns of table \"user\""
+input user_min_order_by {
+  createdAt: order_by
+  email: order_by
+  firstName: order_by
+  id: order_by
+  lastName: order_by
+  passwordHash: order_by
+  phone: order_by
+  salt: order_by
+  updatedAt: order_by
+  username: order_by
+}
+
+"input type for inserting object relation for remote table \"user\""
+input user_obj_rel_insert_input {
+  data: user_insert_input!
+  on_conflict: user_on_conflict
+}
+
+"on conflict condition type for table \"user\""
+input user_on_conflict {
+  constraint: user_constraint!
+  update_columns: [user_update_column!]!
+  where: user_bool_exp
+}
+
+"ordering options when selecting gql from \"user\""
+input user_order_by {
+  createdAt: order_by
+  email: order_by
+  firstName: order_by
+  id: order_by
+  lastName: order_by
+  passwordHash: order_by
+  phone: order_by
+  salt: order_by
+  updatedAt: order_by
+  user_verification_codes_aggregate: user_verification_code_aggregate_order_by
+  username: order_by
+  verified: order_by
+}
+
+"primary key columns input for table: \"user\""
+input user_pk_columns_input {
+  id: uuid!
+}
+
+"input type for updating gql in table \"user\""
+input user_set_input {
+  createdAt: timestamp
+  email: String
+  firstName: String
+  id: uuid
+  lastName: String
+  passwordHash: String
+  phone: String
+  salt: String
+  updatedAt: timestamp
+  username: String
+  verified: Boolean
+}
+
+"order by aggregate values of table \"user_verification_code\""
+input user_verification_code_aggregate_order_by {
+  count: order_by
+  max: user_verification_code_max_order_by
+  min: user_verification_code_min_order_by
+}
+
+"input type for inserting array relation for remote table \"user_verification_code\""
+input user_verification_code_arr_rel_insert_input {
+  data: [user_verification_code_insert_input!]!
+  on_conflict: user_verification_code_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"user_verification_code\". All fields are combined with a logical 'AND'."
+input user_verification_code_bool_exp {
+  _and: [user_verification_code_bool_exp]
+  _not: user_verification_code_bool_exp
+  _or: [user_verification_code_bool_exp]
+  code: String_comparison_exp
+  createdAt: timestamp_comparison_exp
+  expiresAt: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  user: user_bool_exp
+  userId: uuid_comparison_exp
+}
+
+"input type for inserting gql into table \"user_verification_code\""
+input user_verification_code_insert_input {
+  code: String
+  createdAt: timestamp
+  expiresAt: timestamptz
+  id: uuid
+  user: user_obj_rel_insert_input
+  userId: uuid
+}
+
+"order by max() on columns of table \"user_verification_code\""
+input user_verification_code_max_order_by {
+  code: order_by
+  createdAt: order_by
+  expiresAt: order_by
+  id: order_by
+  userId: order_by
+}
+
+"order by min() on columns of table \"user_verification_code\""
+input user_verification_code_min_order_by {
+  code: order_by
+  createdAt: order_by
+  expiresAt: order_by
+  id: order_by
+  userId: order_by
+}
+
+"input type for inserting object relation for remote table \"user_verification_code\""
+input user_verification_code_obj_rel_insert_input {
+  data: user_verification_code_insert_input!
+  on_conflict: user_verification_code_on_conflict
+}
+
+"on conflict condition type for table \"user_verification_code\""
+input user_verification_code_on_conflict {
+  constraint: user_verification_code_constraint!
+  update_columns: [user_verification_code_update_column!]!
+  where: user_verification_code_bool_exp
+}
+
+"ordering options when selecting gql from \"user_verification_code\""
+input user_verification_code_order_by {
+  code: order_by
+  createdAt: order_by
+  expiresAt: order_by
+  id: order_by
+  user: user_order_by
+  userId: order_by
+}
+
+"primary key columns input for table: \"user_verification_code\""
+input user_verification_code_pk_columns_input {
+  id: uuid!
+}
+
+"input type for updating gql in table \"user_verification_code\""
+input user_verification_code_set_input {
+  code: String
+  createdAt: timestamp
+  expiresAt: timestamptz
+  id: uuid
+  userId: uuid
+}
+
+"expression to compare columns of type uuid. All fields are combined with logical 'AND'."
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
+
+scalar bigint
+
+scalar jsonb
+
+scalar timestamp
+
+scalar timestamptz
+
+scalar uuid

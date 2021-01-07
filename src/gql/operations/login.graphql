@@ -1,0 +1,13 @@
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    ... on Token {
+      __typename
+      token
+    }
+
+    ... on InvalidCredentials {
+      __typename
+      email
+    }
+  }
+}

@@ -1,0 +1,21 @@
+schema:
+  - http://207.154.241.194:8080/v1/graphql:
+      headers:
+        x-hasura-admin-secret: formicA123!
+generates:
+  ./src/gql/api.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      skipTypename: false
+      withHOC: false
+      withComponent: false
+documents:
+  - ./src/gql/operations/**/*.graphql
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+    - eslint --fix

@@ -1,0 +1,3 @@
+mutation Verify($verification: VerificationInput!) {
+  verify(verification: $verification)
+}
