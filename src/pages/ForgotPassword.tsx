@@ -7,7 +7,7 @@ import { toaster } from "baseui/toast";
 import Fade from "components/Fade";
 import SpaceBetween from "components/SpaceBetween";
 import { checkMutationError } from "gql/util";
-import { useForgotPasswordMutation, useRestorePasswordMutation } from "gql/api";
+import { useForgotPasswordMutation, useRestorePasswordMutation } from "gql";
 import React, { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";

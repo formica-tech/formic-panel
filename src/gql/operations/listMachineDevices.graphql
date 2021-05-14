@@ -1,0 +1,11 @@
+query ListMachineDevices($machineId: String!) {
+  device_signal(
+    where: { machineId: { _eq: $machineId } }
+    distinct_on: [deviceId, machineId]
+  ) {
+    device {
+      id
+      name
+    }
+  }
+}

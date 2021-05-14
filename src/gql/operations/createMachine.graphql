@@ -1,0 +1,5 @@
+mutation createMachine($id: String!, $name: String) {
+  insert_machine_one(object: { id: $id, name: $name }) {
+    id
+  }
+}

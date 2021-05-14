@@ -1,7 +1,8 @@
+import Fade from "components/Fade";
 import React, { FunctionComponent } from "react";
 
 const NotFound: FunctionComponent = () => {
-  return <div>NotFound</div>;
+  return <Fade>NotFound</Fade>;
 };
 
 export default NotFound;

@@ -1,0 +1,6 @@
+subscription ListMachines($offset: Int = 0, $limit: Int = 10) {
+  machine(offset: $offset, limit: $limit, order_by: [{ updatedAt: desc }]) {
+    id
+    name
+  }
+}

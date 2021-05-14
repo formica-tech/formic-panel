@@ -3,7 +3,7 @@ schema:
       headers:
         x-hasura-admin-secret: formicA123!
 generates:
-  ./src/gql/api.ts:
+  ./src/gql/index.ts:
     plugins:
       - typescript
       - typescript-operations

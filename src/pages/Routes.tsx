@@ -2,6 +2,8 @@ import { AnimatePresence } from "framer-motion";
 import AppLayout from "pages/AppLayout";
 import AuthLayout from "pages/AuthLayout";
 import LoadingScreen from "pages/LoadingScreen";
+import MachineDetail from "pages/MachineDetail";
+import MachineList from "pages/MachineList";
 import Profile from "pages/Profile";
 import Verify from "pages/Verify";
 import { useAuth } from "providers/Auth";
@@ -54,6 +56,8 @@ const Routes: FunctionComponent = () => {
     <AppLayout>
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
+          <Route path="/machine/:id" exact component={MachineDetail} />
+          <Route path="/machine" exact component={MachineList} />
           <Route path="/profile" exact component={Profile} />
           <Route path="/" exact component={Main} />
           <Route path="*" component={NotFound} />

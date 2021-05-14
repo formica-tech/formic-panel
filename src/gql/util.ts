@@ -3,7 +3,7 @@ import {
   UploadProfileImageDocument,
   UploadProfileImageMutationFn,
   UploadProfileImageMutationVariables,
-} from "gql/api";
+} from "gql/index";
 import { FORMIC_MEDIA_URI, getToken, uploadClient } from "gql/apollo";
 
 export const ERROR_CODES: Record<string, string> = {

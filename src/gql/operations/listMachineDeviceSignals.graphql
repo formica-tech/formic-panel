@@ -1,0 +1,24 @@
+query ListMachineDeviceSignals(
+  $machineId: String!
+  $offset: Int!
+  $limit: Int!
+) {
+  signals: device_signal(
+    where: { machineId: { _eq: $machineId } }
+    offset: $offset
+    limit: $limit
+    order_by: { timestamp: desc }
+  ) {
+    id
+    deviceId
+    machineId
+    event
+    payload
+    timestamp
+  }
+  count: device_signal_aggregate(where: { machineId: { _eq: $machineId } }) {
+    aggregate {
+      count
+    }
+  }
+}

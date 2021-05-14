@@ -16,7 +16,7 @@ import Fade from "components/Fade";
 import Scale from "components/Scale";
 import SpaceBetween from "components/SpaceBetween";
 import { UnexpectedError } from "gql/util";
-import { useUserByIdSubscription } from "gql/api";
+import { useUserByIdSubscription } from "gql";
 import { getProfileImageUrl, uploadProfileImage } from "gql/util";
 import { useAuth } from "providers/Auth";
 import { LANG_PREF, saveLangPreference } from "providers/Locale";

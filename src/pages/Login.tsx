@@ -10,7 +10,7 @@ import { Button } from "baseui/button";
 import { FormControl } from "baseui/form-control";
 import { Input } from "baseui/input";
 import { Label4 } from "baseui/typography";
-import { useLoginMutation } from "gql/api";
+import { useLoginMutation } from "gql";
 import { useAuth } from "providers/Auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

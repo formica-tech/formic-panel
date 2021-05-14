@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import { useHistory } from "react-router-dom";
-import { MeDocument, MeQuery } from "gql/api";
+import { MeDocument, MeQuery } from "gql";
 
 export interface User {
   id: string;

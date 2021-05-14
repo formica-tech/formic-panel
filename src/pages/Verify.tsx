@@ -4,7 +4,7 @@ import { Notification } from "baseui/notification";
 import { StatefulPinCode } from "baseui/pin-code";
 import { KIND } from "baseui/tag";
 import { Label2 } from "baseui/typography";
-import { useResendCodeMutation, useVerifyMutation } from "gql/api";
+import { useResendCodeMutation, useVerifyMutation } from "gql";
 import { UnexpectedError } from "gql/util";
 import Fade from "components/Fade";
 import SpaceBetween from "components/SpaceBetween";

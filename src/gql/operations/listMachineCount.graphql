@@ -1,0 +1,7 @@
+subscription listMachineCount {
+  count: machine_aggregate {
+    aggregate {
+      count
+    }
+  }
+}

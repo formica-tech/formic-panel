@@ -6,7 +6,7 @@ import { KIND } from "baseui/tag";
 import Fade from "components/Fade";
 import SpaceBetween from "components/SpaceBetween";
 import { checkMutationError, setVerificationId } from "gql/util";
-import { useSignUpMutation } from "gql/api";
+import { useSignUpMutation } from "gql";
 import { useAuth } from "providers/Auth";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
